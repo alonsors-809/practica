@@ -24,12 +24,13 @@ async componentDidMount() {
       method: "GET",
       headers: new Headers({})
     }).then(response => response.json())
-    .then(data => this.setState({ data }));  
+    .then(data => this.setState({ data: data.movies }));  
 }
 
 
 render() {
-  console.log(this.state.data)
+  const data = this.state.data
+  console.log(data)
   return(
   <div>
       <table className="demo-table">
@@ -43,16 +44,26 @@ render() {
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>Anthony</td>
+			
+        {
+      data.map(function(movie){
+        return(
+          <tr>
+				<td>{movie.id}</td>
+				<td>{movie.title}</td>
 				<td>Television</td>
-				<td>September 07, 2016</td>
-			</tr>
+				<td>{movie.releaseYear}</td>
+        </tr>
+        )
+      })}
+			
 			
 		</tbody>
 		
 	</table>
+  <div>
+  
+  </div>
   </div>
   )
 }

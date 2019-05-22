@@ -19,26 +19,21 @@ getInputPass(event) {
     this.setState({password: event.target.value})
   };
 
-navigate(){
+async navigate(){
     //navega
     //this.props.history.push('/Reports');
-    this.props.history.push({pathname:"/Reports", state:{user:this.state.user}});
+    var data = await localStorage.getItem('users',)
+    if (data == null){
+        data= []
+    }
+    data.push(this.state.user)
+    await localStorage.setItem('users'+data,);
+    //this.props.history.push({pathname:"/"});
     //this.props.location.state.user
 };
 Login() {
-    const Currentuser = this.state.user
-    const Currentpassword = this.state.password
-    if (Currentuser === 'a' && Currentpassword === 'a'){
-        this.props.history.push({pathname:"/Reports", state:{user:Currentuser}});
-    }
-}
-goToRegister(){
-    this.props.history.push({pathname:"/Register"})
-}
-
-async componentWillMount(){
-    console.log("user:",await localStorage.getItem('users')) 
-
+    this.props.history.push({pathname:"/"});
+    
 }
 
 
@@ -55,7 +50,7 @@ render() {
 
             <form class="login100-form validate-form">
             <span class="login100-form-title">
-						Prueba
+						Register
 					</span>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="text" name="email" placeholder="Email" onInput={this.getInputUser.bind(this)} />
@@ -75,13 +70,13 @@ render() {
 
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn" onClick={() => this.Login()}>
-                        Login
+                        Back
                     </button>
                 </div>
 
                 <div class="text-center p-t-136">
-                    <button class="login100-form-btn" onClick={() => this.goToRegister()}>
-                        Register
+                    <button class="login100-form-btn" onClick={() => this.navigate()}>
+                        Create you account
                     </button>
                 </div>
             </form>

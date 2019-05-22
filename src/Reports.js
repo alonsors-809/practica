@@ -14,9 +14,35 @@ formatName() {
   return 'asd';
 };
 
+
+
+async setDataLocalStorage(email,name,social,jobs){
+  let user = this.state.user
+  var data = await localStorage.getItem('LocalData'+user)
+  console.log("1",data)
+  if (data == null){
+    await localStorage.setItem('LocalData'+user,[JSON.stringify({"email":email,"name":name,"social":social,"jobs":jobs})]);
+  }else{
+    data  += [JSON.stringify({"email":email,"name":name,"social":social,"jobs":jobs})]
+    await localStorage.setItem('LocalData'+user,data);
+  }
+  
+} 
+
+async PrintData(){
+  let user = this.state.user
+  var theList = await localStorage.getItem('LocalData'+user)
+  //theList.map(function(row){  
+  console.log( theList[0])
+  //})
+  
+
+}
+
 async componentDidMount() {
   // when component mounted, start a GET request
   // to specified URL
+  localStorage.clear();
   var url = 'https://facebook.github.io/react-native/movies.json';
 
   await fetch(url,
@@ -30,7 +56,6 @@ async componentDidMount() {
 
 render() {
   const data = this.state.data
-  console.log(data)
   return(
   <div>
       <table className="demo-table">
@@ -61,9 +86,10 @@ render() {
 		</tbody>
 		
 	</table>
-  <div>
-  
-  </div>
+    <div>
+    <button onClick={() => this.PrintData()}>PrintData</button>
+    <button onClick={() => this.setDataLocalStorage("a","b","c","d")}>SaveData</button>
+    </div>
   </div>
   )
 }

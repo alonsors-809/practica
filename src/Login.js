@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import image from './logo1.png'
+import image from './logo.png'
 
 class App extends Component {
 
@@ -21,10 +21,7 @@ getInputPass(event) {
 
 navigate(){
     //navega
-    
-    //this.props.history.push('/Reports');
     this.props.history.push({pathname:"/Reports", state:{user:this.state.user}});
-    //this.props.location.state.user
 };
 async Login() {
     var data = await localStorage.getItem('users',)
@@ -36,9 +33,8 @@ async Login() {
 
     const Currentuser = this.state.user
     const Currentpassword = this.state.password
-    this.props.history.push({pathname:"/Reports", state:{user:Currentuser}});
     for(var i = 0 ; i <data.length; i++) { 
-        if (Currentuser === data[i] && Currentpassword === 'a'){
+        if (Currentuser === data[i] && Currentpassword === 'BV-API-Challenge'){
             this.props.history.push({pathname:"/Reports", state:{user:Currentuser}});
         }
      
@@ -50,8 +46,7 @@ goToRegister(){
 }
 
 async componentWillMount(){
-    localStorage.clear();
-    console.log("user:",await localStorage.getItem('users')) 
+    //localStorage.clear();
 
 }
 
@@ -67,9 +62,9 @@ render() {
                 <img src={image} alt="IMG" />
             </div>
 
-            <form class="login100-form validate-form">
+            <div class="login100-form validate-form">
             <span class="login100-form-title">
-						BV
+						Login
 					</span>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                     <input class="input100" type="text" name="email" placeholder="Email" onInput={this.getInputUser.bind(this)} />
@@ -88,18 +83,18 @@ render() {
                 </div>
                 <div class="containerButtons">
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn" onClick={() => this.Login()}>
-                            Login
-                        </button>
-                    </div>
-
-                    <div class="container-login100-form-btn">
                         <button class="login100-form-btn" onClick={() => this.goToRegister()}>
                             Register
                         </button>
                     </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" onClick={() => this.Login()}>
+                            Login
+                        </button>
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

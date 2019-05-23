@@ -151,8 +151,9 @@ body {
   
   
   /* Right-aligned link */
-  .navbar a.right {
+  .navbar button.right {
     float: right;
+    font-size: 25px;
   }
   
   /* Change color on hover */

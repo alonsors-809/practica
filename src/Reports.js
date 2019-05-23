@@ -6,7 +6,6 @@ constructor(props){
     super(props)
     this.state = {
         user:this.props.location.state.user,
-        data: [],
         names:[],
         social:[],
         jobs:[],
@@ -26,21 +25,10 @@ async setDataLocalStorage(email,name,social,jobs){
   await localStorage.setItem('Jobs'+user,JSON.stringify(jobs));
 } 
 
-async PrintData(){
-  let user = this.state.user
-  var theList = await localStorage.getItem('LocalData'+user)
-  //theList.map(function(row){  
-  console.log( theList[0])
-  //})
-  
-
-}
-
 async componentWillMount() {
   // when component mounted, start a GET request to specified URL
-  var url = 'https://www.beenverified.com/hk/dd/teaser/email?email=skip.suva@beenverified.com';
-
   let user = this.state.user
+  var url = 'https://www.beenverified.com/hk/dd/teaser/email?email='+user;
   /**gets the names */
   var Allnames = await localStorage.getItem('Names'+user)
   if (Allnames == null){
@@ -72,7 +60,6 @@ async componentWillMount() {
 
 
   var data = await fetch(url,{ method: "GET",headers: new Headers({})}).then(response => response.json())
-  console.log("emails stores: ", Allemails)
   for (var i=0;i<data.names.length; i++){
     if (!this.inArray(Allnames,data.names[i].full)) {
       Allnames.push(data.names[i].full)
@@ -128,7 +115,8 @@ getInput(event) {
   this.setState({newEntry: event.target.value})
 };
 
-async SaveEmail(Entry){
+async SaveEmail(){
+  var Entry = this.state.newEntry
   let user = this.state.user
   var Allemails = await localStorage.getItem('Emails'+user)
   if (Allemails == null){
@@ -142,11 +130,70 @@ async SaveEmail(Entry){
   this.setState( {emails:Allemails, newEntry:"", DisplayData:Allemails } )
   await localStorage.setItem('Emails'+user,JSON.stringify(Allemails));
 }
+async SaveJobs(){
+  var Entry = this.state.newEntry
+  let user = this.state.user
+  var Allemails = await localStorage.getItem('Emails'+user)
+  if (Allemails == null){
+    Allemails= []
+  }else{
+    Allemails = JSON.parse(Allemails)
+  }
+  if (!this.inArray(Allemails,Entry)) {
+    Allemails.push(Entry)
+  }
+  this.setState( {emails:Allemails, newEntry:"", DisplayData:Allemails } )
+  await localStorage.setItem('Emails'+user,JSON.stringify(Allemails));
+}
+async SaveSocial(){
+  var Entry = this.state.newEntry
+  let user = this.state.user
+  var Allemails = await localStorage.getItem('Emails'+user)
+  if (Allemails == null){
+    Allemails= []
+  }else{
+    Allemails = JSON.parse(Allemails)
+  }
+  if (!this.inArray(Allemails,Entry)) {
+    Allemails.push(Entry)
+  }
+  this.setState( {emails:Allemails, newEntry:"", DisplayData:Allemails } )
+  await localStorage.setItem('Emails'+user,JSON.stringify(Allemails));
+}
+async SaveName(){
+  var Entry = this.state.newEntry
+  let user = this.state.user
+  var AllNames = await localStorage.getItem('Names'+user)
+  if (AllNames == null){
+    AllNames= []
+  }else{
+    AllNames = JSON.parse(AllNames)
+  }
+  if (!this.inArray(AllNames,Entry)) {
+    AllNames.push(Entry)
+  }
+  this.setState( {names:AllNames, newEntry:"", DisplayData:AllNames } )
+  await localStorage.setItem('Names'+user,JSON.stringify(AllNames));
+}
 
 SaveEntry(){
-  var Entry = this.state.newEntry
-  this.SaveEmail(Entry)
+  var title = this.state.title
+  if (title==="Email"){
+    this.SaveEmail()
+  }else if(title==="Names"){
+    this.SaveName()
+  }else if(title==="Jobs"){
+    this.SaveJobs()
+  }else{
+    this.SaveSocial()
+  }
 }
+
+logOut(){
+  this.props.history.push({pathname:"/"})
+}
+
+
 
 render() {
   return(
@@ -162,6 +209,7 @@ render() {
   <button className= {this.state.title === 'Names'? "selectedButton" : "buttonTop"}  onClick={() => this.setState({title:'Names', DisplayData:this.state.names})}>Names</button>
   <button className= {this.state.title === 'Social'? "selectedButton" : "buttonTop"}  onClick={() => this.setState({title:'Social', DisplayData:this.state.social})}>Social</button>
   <button className= {this.state.title === 'Jobs'? "selectedButton" : "buttonTop"}  onClick={() => this.setState({title:'Jobs', DisplayData:this.state.jobs})}>Jobs</button>
+  <button onClick={() => this.logOut()} class="right">Log Out</button>
 </div>
 
 <div class="row">
@@ -185,7 +233,7 @@ render() {
 </div>
 
 <div class="footer">
-  <h2>Footer</h2>
+  <h2>User: {this.state.user}</h2>
 </div>
 </div>
   )

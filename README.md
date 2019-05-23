@@ -1,3 +1,18 @@
+Instructions to run it:
+
+Execute the command -> npm install
+
+This installs the node_modules that the project needs to run, very similar to ember
+
+Execute the command -> npm start
+
+This runs the app in developer mode at [http://localhost:3000]
+
+You have to create a user
+
+Ready
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

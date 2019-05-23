@@ -12,7 +12,8 @@ constructor(props){
         jobs:[],
         emails:[],
         DisplayData:[""],
-        title:'Email'
+        title:'Email',
+        newEntry:""
     }
 
 }
@@ -71,7 +72,7 @@ async componentWillMount() {
 
 
   var data = await fetch(url,{ method: "GET",headers: new Headers({})}).then(response => response.json())
-
+  console.log("emails stores: ", Allemails)
   for (var i=0;i<data.names.length; i++){
     if (!this.inArray(Allnames,data.names[i].full)) {
       Allnames.push(data.names[i].full)
@@ -100,10 +101,7 @@ inArray (list, element) {
       if(list[i] ===element) return true; 
   }
   return false; 
-}; 
-
-
-
+}
 
 returnView = () => {
   const data = this.state.DisplayData
@@ -126,34 +124,70 @@ returnViewHead = () => {
   )
 }
 
+getInput(event) {
+  this.setState({newEntry: event.target.value})
+};
+
+async SaveEmail(Entry){
+  let user = this.state.user
+  var Allemails = await localStorage.getItem('Emails'+user)
+  if (Allemails == null){
+    Allemails= []
+  }else{
+    Allemails = JSON.parse(Allemails)
+  }
+  if (!this.inArray(Allemails,Entry)) {
+    Allemails.push(Entry)
+  }
+  this.setState( {emails:Allemails, newEntry:"", DisplayData:Allemails } )
+  await localStorage.setItem('Emails'+user,JSON.stringify(Allemails));
+}
+
+SaveEntry(){
+  var Entry = this.state.newEntry
+  this.SaveEmail(Entry)
+}
 
 render() {
   return(
 
-  <div type="table-wrapper" className="table-wrapper">
-  
-    <div type="containerTop">
-      <button type="buttonTop"  onClick={() => this.setState({title:'Email', DisplayData:this.state.emails})}>Emails</button>
-      <button type="buttonTop" onClick={() => this.setState({title:'Names', DisplayData:this.state.names})}>Names</button>
-      <button type="buttonTop" onClick={() => this.setState({title:'Social', DisplayData:this.state.social})}>Social</button>
-      <button type="buttonTop" onClick={() => this.setState({title:'Jobs', DisplayData:this.state.jobs})}>Jobs</button>
-    </div>
-  <div  className="PrincipalContainer">
-  <table className="demo-table">
-		<thead>
-    {this.returnViewHead()}
-		</thead>
-		<tbody>
-      {this.returnView()}
-		</tbody>
-		
-	</table>
-    <div>
-      <button type="buttonTop"  onClick={() => this.PrintData()}>PrintData</button>
-      <button type="buttonTop"  onClick={() => this.setDataLocalStorage("a","b","c","d")}>SaveData</button>
-    </div>
+  <div>
+<div class="header">
+  <h1>My Reports</h1>
+  <p>A technical test for Been Verified</p>
+</div>
+
+<div class="navbar">
+  <button className= {this.state.title === 'Email'? "selectedButton" : "buttonTop"}  onClick={() => this.setState({title:'Email', DisplayData:this.state.emails})}>Emails</button>
+  <button className= {this.state.title === 'Names'? "selectedButton" : "buttonTop"}  onClick={() => this.setState({title:'Names', DisplayData:this.state.names})}>Names</button>
+  <button className= {this.state.title === 'Social'? "selectedButton" : "buttonTop"}  onClick={() => this.setState({title:'Social', DisplayData:this.state.social})}>Social</button>
+  <button className= {this.state.title === 'Jobs'? "selectedButton" : "buttonTop"}  onClick={() => this.setState({title:'Jobs', DisplayData:this.state.jobs})}>Jobs</button>
+</div>
+
+<div class="row">
+  <div class="side">
+    <h2 style = {{marginBottom:15}}>Make a new entry of {this.state.title}</h2>
+      <div style = {{flexDirection:'row'}}>
+        <input  type="text" name="newEntry" onInput={this.getInput.bind(this)}  style={{marginRight:30, lineHeight:2, fontSize:20}}  />   
+        <button onClick={() => this.SaveEntry()} style={{backgroundColor:" #b3b1b1", fontSize:20}}>Ingresar</button>
+      </div>
   </div>
+  <div class="main">
+    <table className="demo-table" >
+      <thead >
+      {this.returnViewHead()}
+      </thead>
+      <tbody >
+        {this.returnView()}
+      </tbody>
+  	</table>
   </div>
+</div>
+
+<div class="footer">
+  <h2>Footer</h2>
+</div>
+</div>
   )
 }
 }

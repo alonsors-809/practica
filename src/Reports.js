@@ -6,27 +6,23 @@ constructor(props){
     super(props)
     this.state = {
         user:this.props.location.state.user,
-        data: [] 
+        data: [],
+        names:[],
+        social:[],
+        jobs:[],
+        emails:[],
+        DisplayData:[""],
+        title:'Email'
     }
 
 }
-formatName() {
-  return 'asd';
-};
-
-
 
 async setDataLocalStorage(email,name,social,jobs){
   let user = this.state.user
-  var data = await localStorage.getItem('LocalData'+user)
-  console.log("1",data)
-  if (data == null){
-    await localStorage.setItem('LocalData'+user,[JSON.stringify({"email":email,"name":name,"social":social,"jobs":jobs})]);
-  }else{
-    data  += [JSON.stringify({"email":email,"name":name,"social":social,"jobs":jobs})]
-    await localStorage.setItem('LocalData'+user,data);
-  }
-  
+  await localStorage.setItem('Emails'+user,email);
+  await localStorage.setItem('Names'+user,name);
+  await localStorage.setItem('Social'+user,social);
+  await localStorage.setItem('Jobs'+user,jobs);
 } 
 
 async PrintData(){
@@ -39,60 +35,86 @@ async PrintData(){
 
 }
 
-async componentDidMount() {
-  // when component mounted, start a GET request
-  // to specified URL
+async componentWillMount() {
+  // when component mounted, start a GET request to specified URL
   localStorage.clear();
-  var url = 'https://facebook.github.io/react-native/movies.json';
+  var url = 'https://www.beenverified.com/hk/dd/teaser/email?email=skip.suva@beenverified.com';
+  var Allnames=[]
+  var Allemails=[]
+  var Alljobs=[]
+  var Allsocial=[]
 
-  await fetch(url,
-    {
-      method: "GET",
-      headers: new Headers({})
-    }).then(response => response.json())
-    .then(data => this.setState({ data: data.movies }));  
+  var data = await fetch(url,{ method: "GET",headers: new Headers({})}).then(response => response.json())
+
+  for (var i=0;i<data.names.length; i++){
+    Allnames.push(data.names[i].full)
+  }
+  for ( i=0;i<data.emails.length; i++){
+    Allemails.push(data.emails[i].email_address)
+  }
+  for ( i=0;i<data.jobs.length; i++){
+    Alljobs.push(data.jobs[i])
+  }
+  for ( i=0;i<data.social.length; i++){
+    Allsocial.push(data.social[i])
+  }
+  this.setState( {names: Allnames, social:Allsocial, jobs:Alljobs,emails:Allemails, DisplayData:Allemails } )
+  await this.setDataLocalStorage(Allemails,Allnames,Allsocial,Alljobs)
+  //console.log("person:",Allnames, Allemails, Allsocial, Alljobs) 
+}
+
+returnView = () => {
+  const data = this.state.DisplayData
+  return(
+    data.map(function(row){
+      return(
+      <tr  key={row.toString()}>
+        <td >{row}</td>
+      </tr>
+      )
+    })
+  )
+}
+
+returnViewHead = () => {
+  return(
+    <tr>
+			<th>{this.state.title}</th>
+		</tr>
+  )
 }
 
 
 render() {
-  const data = this.state.data
   return(
-  <div>
-      <table className="demo-table">
-		<caption className="title">Table of Reports</caption>
+
+  <div type="table-wrapper" className="table-wrapper">
+  
+    <div type="containerTop">
+      <button type="buttonTop"  onClick={() => this.setState({title:'Email', DisplayData:this.state.emails})}>Emails</button>
+      <button type="buttonTop" onClick={() => this.setState({title:'Names', DisplayData:this.state.names})}>Names</button>
+      <button type="buttonTop" onClick={() => this.setState({title:'Social', DisplayData:this.state.social})}>Social</button>
+      <button type="buttonTop" onClick={() => this.setState({title:'Jobs', DisplayData:this.state.jobs})}>Jobs</button>
+    </div>
+  <div  className="PrincipalContainer">
+  <table className="demo-table">
 		<thead>
-			<tr>
-				<th>Email addresses</th>
-				<th>Names</th>
-				<th>Social</th>
-				<th>Jobs</th>
-			</tr>
+    {this.returnViewHead()}
 		</thead>
 		<tbody>
-			
-        {
-      data.map(function(movie){
-        return(
-          <tr>
-				<td>{movie.id}</td>
-				<td>{movie.title}</td>
-				<td>Television</td>
-				<td>{movie.releaseYear}</td>
-        </tr>
-        )
-      })}
-			
-			
+      {this.returnView()}
 		</tbody>
 		
 	</table>
     <div>
-    <button onClick={() => this.PrintData()}>PrintData</button>
-    <button onClick={() => this.setDataLocalStorage("a","b","c","d")}>SaveData</button>
+      <button type="buttonTop"  onClick={() => this.PrintData()}>PrintData</button>
+      <button type="buttonTop"  onClick={() => this.setDataLocalStorage("a","b","c","d")}>SaveData</button>
     </div>
+  </div>
   </div>
   )
 }
 }
+
 
 export default Reports;

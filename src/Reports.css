@@ -61,3 +61,36 @@ body {
 .demo-table tfoot th:first-child {
     text-align: right;
 }
+
+/* Container For the top*/
+
+.containerTop button {
+    flex-direction: row
+}
+
+button[type="buttonTop"] {
+    margin-right: 20px;
+    margin-left: 20px;
+    background:#F2F2F2;;
+  }
+  [type='button'].button2 {
+    width: 100px;
+    background: blue;
+  }
+
+.titleOfTable {
+    margin: 0 auto; 
+}
+
+.PrincipalContainer {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 800px;
+  }
+
+.table-wrapper{
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 800px;
+    justify-content: center;
+}

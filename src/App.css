@@ -321,6 +321,10 @@ iframe {
   justify-content: center;
   padding-top: 20px;
 }
+.containerButtons {
+  display: flex;
+  flex-direction: "row";
+}
 
 .login100-form-btn {
   font-family: Montserrat-Bold;

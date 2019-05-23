@@ -21,22 +21,36 @@ getInputPass(event) {
 
 navigate(){
     //navega
+    
     //this.props.history.push('/Reports');
     this.props.history.push({pathname:"/Reports", state:{user:this.state.user}});
     //this.props.location.state.user
 };
-Login() {
+async Login() {
+    var data = await localStorage.getItem('users',)
+    if (data == null){
+        data= []
+    }else{
+        data = JSON.parse(data)
+    }
+
     const Currentuser = this.state.user
     const Currentpassword = this.state.password
-    if (Currentuser === 'a' && Currentpassword === 'a'){
-        this.props.history.push({pathname:"/Reports", state:{user:Currentuser}});
+    this.props.history.push({pathname:"/Reports", state:{user:Currentuser}});
+    for(var i = 0 ; i <data.length; i++) { 
+        if (Currentuser === data[i] && Currentpassword === 'a'){
+            this.props.history.push({pathname:"/Reports", state:{user:Currentuser}});
+        }
+     
     }
+    
 }
 goToRegister(){
     this.props.history.push({pathname:"/Register"})
 }
 
 async componentWillMount(){
+    localStorage.clear();
     console.log("user:",await localStorage.getItem('users')) 
 
 }
@@ -72,17 +86,18 @@ render() {
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
                 </div>
+                <div class="containerButtons">
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" onClick={() => this.Login()}>
+                            Login
+                        </button>
+                    </div>
 
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" onClick={() => this.Login()}>
-                        Login
-                    </button>
-                </div>
-
-                <div class="text-center p-t-136">
-                    <button class="login100-form-btn" onClick={() => this.goToRegister()}>
-                        Register
-                    </button>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" onClick={() => this.goToRegister()}>
+                            Register
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>

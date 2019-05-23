@@ -1,0 +1,174 @@
+{
+   "report_info":{
+      "query_id":null,
+      "report_id":"8e37b14e-b314-4360-9d3b-2fddb8f244b4",
+      "response_time":0.174858833,
+      "proxy_flags":[
+
+      ]
+   },
+   "bvids":[
+
+   ],
+   "names":[
+      {
+         "full":"R**** H ****",
+         "parts":{
+            "salutation":"",
+            "first_name":"R****",
+            "middle_name":"H",
+            "last_name":"****",
+            "suffix":""
+         },
+         "first_seen":"",
+         "last_seen":""
+      },
+      {
+         "full":"S**** ****",
+         "parts":{
+            "salutation":"",
+            "first_name":"S****",
+            "middle_name":"",
+            "last_name":"****",
+            "suffix":""
+         },
+         "first_seen":"",
+         "last_seen":""
+      }
+   ],
+   "addresses":[
+      {
+         "latitude":43.083056,
+         "longitude":-73.785,
+         "precision":"city",
+         "property_record_available":null,
+         "full":"Saratoga Springs, NY",
+         "parts":{
+            "house_number":"",
+            "pre_direction":"",
+            "street_name":"",
+            "street_type":"",
+            "post_direction":"",
+            "unit":"",
+            "city":"Saratoga Springs",
+            "state":"NY",
+            "zip":"",
+            "zip4":"",
+            "country":"US"
+         },
+         "type":"",
+         "first_seen":"",
+         "last_seen":""
+      },
+      {
+         "latitude":40.714167,
+         "longitude":-74.006389,
+         "precision":"city",
+         "property_record_available":null,
+         "full":"New York, NY",
+         "parts":{
+            "house_number":"",
+            "pre_direction":"",
+            "street_name":"",
+            "street_type":"",
+            "post_direction":"",
+            "unit":"",
+            "city":"New York",
+            "state":"NY",
+            "zip":"",
+            "zip4":"",
+            "country":"US"
+         },
+         "type":"",
+         "first_seen":"",
+         "last_seen":""
+      },
+      {
+         "latitude":43.661389,
+         "longitude":-70.255833,
+         "precision":"city",
+         "property_record_available":null,
+         "full":"Portland, ME",
+         "parts":{
+            "house_number":"",
+            "pre_direction":"",
+            "street_name":"",
+            "street_type":"",
+            "post_direction":"",
+            "unit":"",
+            "city":"Portland",
+            "state":"ME",
+            "zip":"",
+            "zip4":"",
+            "country":"US"
+         },
+         "type":"",
+         "first_seen":"",
+         "last_seen":""
+      }
+   ],
+   "dob":"",
+   "gender":"male",
+   "emails":[
+      {
+         "email_address":"skip.suva@beenverified.com",
+         "type":"",
+         "address_md5":"",
+         "is_disposable":false,
+         "is_public_provider":false,
+         "first_seen":"",
+         "last_seen":""
+      }
+   ],
+   "phones":[
+      {
+         "number":"207615XXXX",
+         "type":"mobile",
+         "first_seen":"",
+         "last_seen":"",
+         "country_code":1
+      },
+      {
+         "number":"212785XXXX",
+         "type":"",
+         "first_seen":"",
+         "last_seen":"",
+         "country_code":1
+      }
+   ],
+   "jobs":[
+
+   ],
+   "educations":[
+
+   ],
+   "images":[
+
+   ],
+   "social":[
+
+   ],
+   "user_ids":[
+      "97****@linkedin",
+      "28****@linkedin",
+      "18****@gravatar",
+      "12****@facebook",
+      "#8****@linkedin"
+   ],
+   "usernames":[
+      "rs****",
+      "sk****"
+   ],
+   "languages":[
+      {
+         "language":"en",
+         "region":"US"
+      }
+   ],
+   "ethnicities":[
+
+   ],
+   "origin_countries":[
+
+   ]
+}

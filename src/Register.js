@@ -7,7 +7,7 @@ class App extends Component {
 constructor(props){
     super(props)
     this.state = {
-        user:'',
+            user:'',
         password:''
     }
 
@@ -21,15 +21,16 @@ getInputPass(event) {
 
 async navigate(){
     //navega
-    //this.props.history.push('/Reports');
-    var data = await localStorage.getItem('users',)
+    var data = await localStorage.getItem('users')
     if (data == null){
         data= []
+    }else{
+        data = JSON.parse(data)
     }
+    
     data.push(this.state.user)
-    await localStorage.setItem('users'+data,);
-    //this.props.history.push({pathname:"/"});
-    //this.props.location.state.user
+    await localStorage.setItem('users',JSON.stringify(data));
+    this.props.history.push({pathname:"/"});
 };
 Login() {
     this.props.history.push({pathname:"/"});
@@ -48,7 +49,7 @@ render() {
                 <img src={image} alt="IMG" />
             </div>
 
-            <form class="login100-form validate-form">
+            <div class="login100-form validate-form">
             <span class="login100-form-title">
 						Register
 					</span>
@@ -67,19 +68,20 @@ render() {
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
                 </div>
+                <div class="containerButtons">
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" onClick={() => this.Login()}>
+                            Back
+                        </button>
+                    </div>
 
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" onClick={() => this.Login()}>
-                        Back
-                    </button>
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn" onClick={() => this.navigate()}>
+                            Create
+                        </button>
+                    </div>
                 </div>
-
-                <div class="text-center p-t-136">
-                    <button class="login100-form-btn" onClick={() => this.navigate()}>
-                        Create you account
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

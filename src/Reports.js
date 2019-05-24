@@ -60,7 +60,7 @@ async componentWillMount() {
   }
 
 
-  var data = await fetch(url,{ method: "GET",headers: new Headers({})}).then(response => response.json())
+  var data = await fetch(url,{ method: "GET",mode:'cors',headers: new Headers({})}).then(response => response.json())
   for (var i=0;i<data.names.length; i++){
     if (!this.inArray(Allnames,data.names[i].full)) {
       Allnames.push(data.names[i].full)

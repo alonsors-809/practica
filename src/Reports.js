@@ -66,7 +66,10 @@ async componentWillMount() {
       method: "GET",
       mode:'cors',
     headers: new Headers({
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
+      "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+      "preflightContinue": false,
+      "optionsSuccessStatus": 204
     })
   }).then(
     response => response.json())

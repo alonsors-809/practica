@@ -69,7 +69,9 @@ async componentWillMount() {
   headers: new Headers({
     "Access-Control-Allow-Origin": "*"
   })
-}).then(response => response.json())
+}).then(
+  response => response.json())
+console.log("resp:",data)
   for (var i=0;i<data.names.length; i++){
     if (!this.inArray(Allnames,data.names[i].full)) {
       Allnames.push(data.names[i].full)

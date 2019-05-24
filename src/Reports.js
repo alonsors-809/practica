@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './Reports.css';
+
+
 class Reports extends Component {
 
 constructor(props){
@@ -65,6 +67,7 @@ async componentWillMount() {
     method: "GET",
     mode:'cors',
   headers: new Headers({
+    "Access-Control-Allow-Origin": "*"
   })
 }).then(response => response.json())
   for (var i=0;i<data.names.length; i++){

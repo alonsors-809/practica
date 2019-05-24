@@ -133,32 +133,32 @@ async SaveEmail(){
 async SaveJobs(){
   var Entry = this.state.newEntry
   let user = this.state.user
-  var Allemails = await localStorage.getItem('Emails'+user)
-  if (Allemails == null){
-    Allemails= []
+  var AllJobs = await localStorage.getItem('Jobs'+user)
+  if (AllJobs == null){
+    AllJobs= []
   }else{
-    Allemails = JSON.parse(Allemails)
+    AllJobs = JSON.parse(AllJobs)
   }
-  if (!this.inArray(Allemails,Entry)) {
-    Allemails.push(Entry)
+  if (!this.inArray(AllJobs,Entry)) {
+    AllJobs.push(Entry)
   }
-  this.setState( {emails:Allemails, newEntry:"", DisplayData:Allemails } )
-  await localStorage.setItem('Emails'+user,JSON.stringify(Allemails));
+  this.setState( {jobs:AllJobs, newEntry:"", DisplayData:AllJobs } )
+  await localStorage.setItem('Jobs'+user,JSON.stringify(AllJobs));
 }
 async SaveSocial(){
   var Entry = this.state.newEntry
   let user = this.state.user
-  var Allemails = await localStorage.getItem('Emails'+user)
-  if (Allemails == null){
-    Allemails= []
+  var AllSocial = await localStorage.getItem('Social'+user)
+  if (AllSocial == null){
+    AllSocial= []
   }else{
-    Allemails = JSON.parse(Allemails)
+    AllSocial = JSON.parse(AllSocial)
   }
-  if (!this.inArray(Allemails,Entry)) {
-    Allemails.push(Entry)
+  if (!this.inArray(AllSocial,Entry)) {
+    AllSocial.push(Entry)
   }
-  this.setState( {emails:Allemails, newEntry:"", DisplayData:Allemails } )
-  await localStorage.setItem('Emails'+user,JSON.stringify(Allemails));
+  this.setState( {social:AllSocial, newEntry:"", DisplayData:AllSocial } )
+  await localStorage.setItem('Social'+user,JSON.stringify(AllSocial));
 }
 async SaveName(){
   var Entry = this.state.newEntry

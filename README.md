@@ -12,6 +12,12 @@ You have to create a user
 
 Ready
 
+To use the program create a user, a suggestion is 
+
+user: skip.suva@beenverified.com
+
+password: BV-API-Challenge
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

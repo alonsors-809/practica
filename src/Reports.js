@@ -29,6 +29,7 @@ async componentWillMount() {
   // when component mounted, start a GET request to specified URL
   let user = this.state.user
   var url = 'https://www.beenverified.com/hk/dd/teaser/email?email='+user;
+  
   /**gets the names */
   var Allnames = await localStorage.getItem('Names'+user)
   if (Allnames == null){
@@ -44,14 +45,14 @@ async componentWillMount() {
     Allemails = JSON.parse(Allemails)
   }
 
-  var Alljobs = await localStorage.getItem('Social'+user)
+  var Alljobs = await localStorage.getItem('Jobs'+user)
   if (Alljobs == null){
     Alljobs= []
   }else{
     Alljobs = JSON.parse(Alljobs)
   }
 
-  var Allsocial = await localStorage.getItem('Jobs'+user)
+  var Allsocial = await localStorage.getItem('Social'+user)
   if (Allsocial == null){
     Allsocial= []
   }else{
@@ -71,13 +72,13 @@ async componentWillMount() {
     }
   }
   for ( i=0;i<data.jobs.length; i++){
-    Alljobs.push(data.jobs[i])
+    Alljobs.push(data.jobs[i].name)
   }
   for ( i=0;i<data.social.length; i++){
-    Allsocial.push(data.social[i])
+    Allsocial.push(data.social[i].name)
   }
 
-  this.setState( {names: Allnames, social:Allsocial, jobs:Alljobs,emails:Allemails, DisplayData:Allemails } )
+  this.setState( {names: Allnames, social:Allsocial, jobs:Alljobs, emails:Allemails, DisplayData:Allemails } )
   await this.setDataLocalStorage(Allemails,Allnames,Allsocial,Alljobs)
   
 }
@@ -184,7 +185,7 @@ SaveEntry(){
     this.SaveName()
   }else if(title==="Jobs"){
     this.SaveJobs()
-  }else{
+  }else if (title === "Social"){
     this.SaveSocial()
   }
 }
@@ -216,8 +217,8 @@ render() {
   <div class="side">
     <h2 style = {{marginBottom:15}}>Make a new entry of {this.state.title}</h2>
       <div style = {{flexDirection:'row'}}>
-        <input  type="text" name="newEntry" onInput={this.getInput.bind(this)}  style={{marginRight:30, lineHeight:2, fontSize:20}}  />   
-        <button onClick={() => this.SaveEntry()} style={{backgroundColor:" #b3b1b1", fontSize:20}}>Ingresar</button>
+        <input  type="text" name="newEntry" value={this.state.newEntry} onInput={this.getInput.bind(this)}  style={{marginRight:30, lineHeight:2, fontSize:20}}  />   
+        <button onClick={() => this.SaveEntry()} style={{backgroundColor:" #b3b1b1", fontSize:20}}>Add</button>
       </div>
   </div>
   <div class="main">

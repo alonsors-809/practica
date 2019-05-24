@@ -46,8 +46,6 @@ goToRegister(){
 }
 
 async componentWillMount(){
-    //localStorage.clear();
-
 }
 
 

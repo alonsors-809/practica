@@ -6,7 +6,7 @@ class Reports extends Component {
 constructor(props){
     super(props)
     this.state = {
-        user:this.props.location.state.user,
+        user:"",
         names:[],
         social:[],
         jobs:[],
@@ -28,7 +28,12 @@ async setDataLocalStorage(email,name,social,jobs){
 
 async componentWillMount() {
   // when component mounted, start a GET request to specified URL
-  let user = this.state.user
+  if (this.props.location.state === undefined){
+    this.logOut()
+  }else{
+  let user = this.props.location.state.user
+  
+  
   var url = 'https://www.beenverified.com/hk/dd/teaser/email?email='+user;
   
   /**gets the names */
@@ -94,10 +99,10 @@ async componentWillMount() {
   }catch(e){
     console.log("error: ",e)
   }
+  let incomingUser = this.props.location.state.user
+  this.setState( {names: Allnames, social:Allsocial, jobs:Alljobs, emails:Allemails, DisplayData:Allemails, user: incomingUser } )
   
-  this.setState( {names: Allnames, social:Allsocial, jobs:Alljobs, emails:Allemails, DisplayData:Allemails } )
-  
-  
+}
 }
 
 //Compare element Doesnt exist

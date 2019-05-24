@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './Reports.css';
 
-
 class Reports extends Component {
 
 constructor(props){
@@ -62,35 +61,39 @@ async componentWillMount() {
   }
 
   console.log("cors activados")
-
-  var data = await fetch(url,{ 
-    method: "GET",
-    mode:'cors',
-  headers: new Headers({
-    "Access-Control-Allow-Origin": "*"
-  })
-}).then(
-  response => response.json())
-console.log("resp:",data)
-  for (var i=0;i<data.names.length; i++){
-    if (!this.inArray(Allnames,data.names[i].full)) {
-      Allnames.push(data.names[i].full)
+  try{
+    var data = await fetch(url,{ 
+      method: "GET",
+      mode:'cors',
+    headers: new Headers({
+      "Access-Control-Allow-Origin": "*"
+    })
+  }).then(
+    response => response.json())
+    for (var i=0;i<data.names.length; i++){
+      if (!this.inArray(Allnames,data.names[i].full)) {
+        Allnames.push(data.names[i].full)
+      }
     }
-  }
-  for ( i=0;i<data.emails.length; i++){
-    if (!this.inArray(Allemails,data.emails[i].email_address)) {
-      Allemails.push(data.emails[i].email_address)
+    for ( i=0;i<data.emails.length; i++){
+      if (!this.inArray(Allemails,data.emails[i].email_address)) {
+        Allemails.push(data.emails[i].email_address)
+      }
     }
+    for ( i=0;i<data.jobs.length; i++){
+      Alljobs.push(data.jobs[i].name)
+    }
+    for ( i=0;i<data.social.length; i++){
+      Allsocial.push(data.social[i].name)
+    }
+  
+    await this.setDataLocalStorage(Allemails,Allnames,Allsocial,Alljobs)
+  }catch(e){
+    console.log("error: ",e)
   }
-  for ( i=0;i<data.jobs.length; i++){
-    Alljobs.push(data.jobs[i].name)
-  }
-  for ( i=0;i<data.social.length; i++){
-    Allsocial.push(data.social[i].name)
-  }
-
+  
   this.setState( {names: Allnames, social:Allsocial, jobs:Alljobs, emails:Allemails, DisplayData:Allemails } )
-  await this.setDataLocalStorage(Allemails,Allnames,Allsocial,Alljobs)
+  
   
 }
 

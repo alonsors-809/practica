@@ -2,7 +2,7 @@ Instructions to run it:
 
 Execute the command -> npm install
 
-This installs the node_modules that the project needs to run, very similar to ember
+##This installs the node_modules that the project needs to run, very similar to ember
 
 Execute the command -> npm start
 
